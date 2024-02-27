@@ -16,9 +16,7 @@ class PostFactory extends Factory
             $tags = [];
             
             for ($i = 1; $i <= rand(1, $count); $i++) {
-                $tags[] = [
-                    'name' => fake()->word()
-                ];
+                $tags[] = fake()->word();
             }
 
             return $tags;

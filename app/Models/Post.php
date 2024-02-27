@@ -9,10 +9,10 @@ class Post extends Model
 {
     use HasFactory;
 
-    // protected $with = [
-    //     'author',
-    //     'comments'
-    // ];
+    protected $with = [
+        'author',
+        'comments'
+    ];
 
     protected $fillable = [
         'is_private',

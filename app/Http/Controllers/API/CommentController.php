@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
 
 class CommentController extends Controller
@@ -14,7 +15,7 @@ class CommentController extends Controller
 
         return response()->json([
             'ok' => true,
-            'message' => 'Commentaire récupérés avec succès',
+            'message' => 'Comments recovred successfully',
             'data' => $comments
         ]);
     }
@@ -26,8 +27,40 @@ class CommentController extends Controller
 
         return response()->json([
             'ok' => true,
-            'message'=> 'Commentaire créé avec succès',
+            'message'=> 'Comment created successfully',
             'data' => $comment
         ], 201);
+    }
+
+    
+    public function show(Comment $comment)
+    {
+        return response()->json([
+            'ok' => true,
+            'message' => 'Comment recovered successfully',
+            'data' => $comment
+        ]);
+    }
+
+
+    public function update(UpdateCommentRequest $request, Comment $comment)
+    {
+        $comment->update($request->all());
+
+        return response()->json([
+            'ok' => true,
+            'message' => 'Comment modified successfully',
+            'data' => $comment,
+        ]);
+    }
+
+
+    public function destroy(Comment $comment)
+    {    
+        return response()->json([
+            'ok' => true,
+            'message' => 'Comment deleted successfully',
+            'data' => $comment->delete(),
+        ]);
     }
 }

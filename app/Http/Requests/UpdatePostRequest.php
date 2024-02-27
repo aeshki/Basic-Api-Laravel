@@ -17,8 +17,9 @@ class UpdatePostRequest extends FormRequest
             'is_private' => 'boolean',
             'title' => 'string|min:2|max:80',
             'description' => 'nullable|min:2|max:500',
-            'tags' => 'required|array|max:3',
+            'tags' => 'nullable|array|min:1|max:3',
             'tags.*' => 'required|string|distinct|min:2|max:22',
+            'user_id' => 'missing'
         ];
     }
 }
