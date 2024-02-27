@@ -5,23 +5,31 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
- */
+
 class PostFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
+        $fakerTags = function($count) {
+            if (fake()->boolean) return null;
+
+            $tags = [];
+            
+            for ($i = 1; $i <= rand(1, $count); $i++) {
+                $tags[] = [
+                    'name' => fake()->word()
+                ];
+            }
+
+            return $tags;
+        };
+
         return [
-            'content' => $this->faker->paragraph(),
             'user_id' => rand(1, User::count()),
-            'image' => 'default_picture_' . rand(1, 5) . ('.jpg'),
-            'tags' => $this->faker->words(3, true),
+            'is_private' => fake()->boolean(),
+            'title' => fake()->title(),
+            'description' => fake()->paragraph(),
+            'tags' => $fakerTags(3),
         ];
     }
 }

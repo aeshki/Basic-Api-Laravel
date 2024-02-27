@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Casts\HexColor;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,35 +13,28 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
+        'avatar',
+        'pseudo',
+        'username',
+        'color',
         'email',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
+        'role_id',
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
+    protected $appends = [
+        'is_staff'
+    ];
+
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'color' => HexColor::class,
     ];
 
     public function posts()
@@ -58,8 +52,10 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function isAdmin()
+    protected function isStaff(): Attribute
     {
-        return $this->role_id == 2;
+        return new Attribute(
+            get: fn () => $this->role_id == 2,
+        );
     }
 }

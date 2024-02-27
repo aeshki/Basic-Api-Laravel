@@ -9,11 +9,31 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $with = ['user'];
+    // protected $with = [
+    //     'author',
+    //     'comments'
+    // ];
 
-    public function user()
+    protected $fillable = [
+        'is_private',
+        'title',
+        'description',
+        'tags',
+        'user_id'
+    ];
+
+    protected $hidden = [
+        'user_id'
+    ];
+
+    protected $casts = [
+        'tags' => 'array',
+        'is_private' => 'boolean',
+    ];
+
+    public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function comments()

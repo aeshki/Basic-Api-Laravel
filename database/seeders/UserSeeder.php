@@ -9,25 +9,22 @@ use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         User::create([
             'pseudo' => 'admin',
+            'username' => 'toto',
             'password'=> Hash::make('Azerty80@'),
             'email'=> 'admin@test.fr',
-            'email_verified_at' => now(),
             'remember_token' => Str::random(80),
             'role_id' => 2
         ]);
 
         User::create([
             'pseudo' => 'user',
-            'password'=> Hash::make('Azerty80@'),
+            'username' => 'toto2',
+            'password'=> Hash::make('Azerty80@0'),
             'email'=> 'user@test.fr',
-            'email_verified_at' => now(),
             'remember_token' => Str::random(10),
             'role_id' => 1
         ]);
