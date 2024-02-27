@@ -36,7 +36,7 @@ class UserController extends Controller
 
 
         $user = User::create([
-            ...$request->all(),
+            ...$request->safe()->all(),
             'password' => Hash::make($request->password),
             'avatar' => $request->avatar
         ]);
@@ -62,7 +62,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {        
-        $user->fill($request->all());
+        $user->fill($request->safe()->all());
 
 
         $resetAvatarCache = function() use ($user) {

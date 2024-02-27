@@ -13,7 +13,8 @@ class CommentFactory extends Factory
         return [
             'post_id' => rand(1, Post::count()),
             'user_id' => rand(1, User::count()),
-            'content' => $this->faker->paragraph(),
+            'content' => fake()->paragraph(),
+            'like' => fake()->boolean() ? rand(1, 2000) : 0,
         ];
     }
 }

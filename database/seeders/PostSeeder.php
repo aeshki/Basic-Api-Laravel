@@ -7,11 +7,8 @@ use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        \App\Models\Post::factory(20)->create();
+        \App\Models\Post::factory(rand(20, 80))->create();
     }
 }

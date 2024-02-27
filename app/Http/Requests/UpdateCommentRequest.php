@@ -10,12 +10,12 @@ class UpdateCommentRequest extends FormRequest
     {
         return true;
     }
-
+    
 
     public function rules()
     {
         return [
-            
+            'content' => 'string|min:2|max:800',
         ];
     }
 }

@@ -21,7 +21,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        $post = Post::create(request()->all());
+        $post = Post::create(request()->safe()->all());
 
         return response()->json([
             'ok' => true,
@@ -43,7 +43,7 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $post->update($request->all());
+        $post->update($request->safe()->all());
 
         return response()->json([
             'ok' => true,

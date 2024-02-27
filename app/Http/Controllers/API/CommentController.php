@@ -23,7 +23,10 @@ class CommentController extends Controller
 
     public function store(StoreCommentRequest $request)
     {
-        $comment = Comment::create(request()->all());
+        $comment = Comment::create([
+            ...$request->safe()->all(),
+            'like' => 0
+        ]);
 
         return response()->json([
             'ok' => true,
@@ -45,7 +48,7 @@ class CommentController extends Controller
 
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        $comment->update($request->all());
+        $comment->update($request->safe()->all());
 
         return response()->json([
             'ok' => true,

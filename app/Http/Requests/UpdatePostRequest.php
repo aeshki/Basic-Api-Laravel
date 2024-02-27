@@ -19,7 +19,6 @@ class UpdatePostRequest extends FormRequest
             'description' => 'nullable|min:2|max:500',
             'tags' => 'nullable|array|min:1|max:3',
             'tags.*' => 'required|string|distinct|min:2|max:22',
-            'user_id' => 'missing'
         ];
     }
 }
